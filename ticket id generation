@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
+
+#define MAX_TICKET_ID_LENGTH 100
+
+// Function to generate a random number
+int generate_random_number(int min, int max) {
+    // Seed the random number generator with the current time
+    srand(time(NULL));
+    return (rand() % (max - min + 1)) + min;
+}
+
+// Function to generate a unique ticket ID
+void generate_ticket_id(char *customer_name, char *ticket_id) {
+    int random_number = generate_random_number(1000, 9999); // Generate a 4-digit random number
+
+    // Format the ticket ID using sprintf
+    sprintf(ticket_id, "TKT-%s-%d", customer_name, random_number);
+}
+
+int main() {
+    char customer_name[50];
+    char ticket_id[MAX_TICKET_ID_LENGTH];
+
+    // Get the customer name (you might get this from user input or elsewhere)
+    printf("Enter customer name: ");
+    scanf("%s", customer_name);
+
+
+    generate_ticket_id(customer_name, ticket_id);
+
+    printf("Generated Ticket ID: %s\n", ticket_id);
+
+    return 0;
+}
