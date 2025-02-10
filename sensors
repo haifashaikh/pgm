@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define NUM_SENSORS 6
+#define NORMAL_MIN 20
+#define NORMAL_MAX 40
+#define FAULTY_THRESHOLD 50
+
+bool is_faulty(int temperature) {
+    return temperature > FAULTY_THRESHOLD;
+}
+
+int main() {
+    int temperatures[NUM_SENSORS] = {25, 30, 28, 55, 32, 29};
+    int faulty_count = 0;
+
+    printf("Sensor Readings:\n");
+    for (int i = 0; i < NUM_SENSORS; i++) {
+        printf("Sensor %d: %d Celsius ", i + 1, temperatures[i]);
+
+        if (is_faulty(temperatures[i])) {
+            printf("(FAULTY)\n");
+            faulty_count++;
+        } else if (temperatures[i] < NORMAL_MIN || temperatures[i] > NORMAL_MAX) {
+             printf("(OUT OF NORMAL RANGE)\n");
+        } else {
+            printf("(OK)\n");
+        }
+    }
+
+    printf("\nFaulty Sensor Count: %d\n", faulty_count);
+
+    if (faulty_count > 0) {
+        printf("Potential sensor malfunction detected!\n");
+    } else {
+        printf("All sensors appear to be functioning within normal parameters.\n");
+    }
+
+    return 0;
+}
